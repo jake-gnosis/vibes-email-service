@@ -1,0 +1,374 @@
+{
+  "info": {
+    "name": "Vibes Email Service API",
+    "description": "API collection for testing the Vibes Email Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the server is running"
+      }
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "description": "Register a new user"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "description": "Login a user"
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "profile"]
+            },
+            "description": "Get user profile"
+          }
+        },
+        {
+          "name": "Regenerate API Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/regenerate-api-key",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "regenerate-api-key"]
+            },
+            "description": "Regenerate API key"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Email",
+      "item": [
+        {
+          "name": "Send Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/email/send",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "email", "send"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"to\": [\"recipient@example.com\"],\n    \"subject\": \"Test Email\",\n    \"html\": \"<p>This is a test email from Vibes Email Service.</p>\",\n    \"text\": \"This is a test email from Vibes Email Service.\"\n}"
+            },
+            "description": "Send an email"
+          }
+        },
+        {
+          "name": "Send Templated Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/email/send-template",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "email", "send-template"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"to\": [\"recipient@example.com\"],\n    \"templateId\": \"{{templateId}}\",\n    \"templateData\": {\n        \"name\": \"John\",\n        \"company\": \"Acme Inc\"\n    }\n}"
+            },
+            "description": "Send an email using a template"
+          }
+        },
+        {
+          "name": "Get Email Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/email/status/{{emailId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "email", "status", "{{emailId}}"]
+            },
+            "description": "Get email status"
+          }
+        },
+        {
+          "name": "Get Email History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/email/history?limit=10&skip=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "email", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Get email history"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "item": [
+        {
+          "name": "Create Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Welcome Email\",\n    \"description\": \"Email sent to new users\",\n    \"subject\": \"Welcome to {{company}}\",\n    \"html\": \"<p>Hello {{name}},</p><p>Welcome to {{company}}!</p>\",\n    \"text\": \"Hello {{name}}, Welcome to {{company}}!\",\n    \"isPublic\": false\n}"
+            },
+            "description": "Create a new template"
+          }
+        },
+        {
+          "name": "Update Template",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates", "{{templateId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Welcome Email\",\n    \"description\": \"Updated description\",\n    \"subject\": \"Welcome to {{company}} - Updated\",\n    \"html\": \"<p>Hello {{name}},</p><p>Welcome to {{company}}! We're glad to have you.</p>\"\n}"
+            },
+            "description": "Update a template"
+          }
+        },
+        {
+          "name": "Delete Template",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates", "{{templateId}}"]
+            },
+            "description": "Delete a template"
+          }
+        },
+        {
+          "name": "Get Template",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates/{{templateId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates", "{{templateId}}"]
+            },
+            "description": "Get a template"
+          }
+        },
+        {
+          "name": "List Templates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates?limit=10&skip=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "List user templates"
+          }
+        },
+        {
+          "name": "List Public Templates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/templates/public?limit=10&skip=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "templates", "public"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "List public templates"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "your-api-key",
+      "type": "string"
+    },
+    {
+      "key": "templateId",
+      "value": "template-id",
+      "type": "string"
+    },
+    {
+      "key": "emailId",
+      "value": "email-id",
+      "type": "string"
+    }
+  ]
+} 
